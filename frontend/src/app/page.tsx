@@ -46,7 +46,7 @@ function RecordButton({
     <div className="relative inline-flex items-center justify-center">
       {isRecording && (
         <span
-          className="absolute inset-0 rounded-full bg-red-500/30"
+          className="absolute inset-0 rounded-full bg-red-500/25"
           style={{ animation: "pulse-ring 1.5s ease-out infinite" }}
         />
       )}
@@ -55,14 +55,14 @@ function RecordButton({
         disabled={disabled}
         aria-label={isRecording ? "Stop recording" : "Start recording"}
         className={[
-          "relative z-10 flex items-center gap-3 px-8 py-4",
+          "relative z-10 flex items-center gap-3 px-8 py-4 rounded-full",
           "text-base font-sans font-medium tracking-wide",
-          "border-2 transition-all duration-200",
+          "border transition-all duration-200 shadow-sm",
           "focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-forest",
           "disabled:opacity-50 disabled:cursor-not-allowed",
           isRecording
             ? "bg-warm-900 text-cream border-warm-900 hover:bg-warm-800 active:bg-warm-700"
-            : "bg-forest text-white border-forest hover:bg-forest-dark hover:-translate-y-0.5 hover:shadow-md active:translate-y-0 active:shadow-none",
+            : "bg-forest text-white border-forest hover:bg-forest-dark hover:-translate-y-0.5 active:translate-y-0",
         ].join(" ")}
       >
         {isRecording ? (
@@ -100,7 +100,7 @@ function ResultCard({ result }: { result: AnalysisResult }) {
   return (
     <section
       aria-live="polite"
-      className="border-2 border-warm-800 bg-cream-50 p-6 md:p-8"
+      className="rounded-xl border border-warm-200 bg-cream-50/80 p-6 md:p-8 shadow-sm"
     >
       <p className="text-sm font-sans font-medium tracking-widest uppercase text-warm-500 mb-2">
         Identified Species
@@ -108,10 +108,10 @@ function ResultCard({ result }: { result: AnalysisResult }) {
       <h2 className="font-serif text-3xl md:text-4xl text-warm-900 mb-4">
         {result.species}
       </h2>
-      <div className="flex items-center gap-3">
-        <div className="flex-1 h-2 bg-warm-200 overflow-hidden">
+      <div className="mt-2 flex items-center gap-3">
+        <div className="flex-1 h-2 rounded-full bg-warm-200/70 overflow-hidden">
           <div
-            className="h-full bg-forest transition-all duration-700 ease-out"
+            className="h-full rounded-full bg-forest transition-all duration-700 ease-out"
             style={{ width: `${pct}%` }}
           />
         </div>
@@ -128,7 +128,7 @@ function LoadingState() {
     <div
       role="status"
       aria-label="Analyzing audio"
-      className="border-2 border-dashed border-warm-300 p-6 md:p-8 flex items-center gap-4"
+      className="flex items-center gap-4 rounded-xl border border-dashed border-warm-300/80 bg-cream-50/70 p-6 md:p-8"
     >
       <svg
         className="animate-spin h-5 w-5 text-forest shrink-0"
@@ -171,7 +171,7 @@ function ErrorBanner({
   return (
     <div
       role="alert"
-      className="border-2 border-red-700/30 bg-red-50 p-4 flex items-start gap-3"
+      className="flex items-start gap-3 rounded-xl border border-red-700/25 bg-red-50/90 p-4"
     >
       <svg
         className="w-5 h-5 text-red-700 mt-0.5 shrink-0"
@@ -212,7 +212,7 @@ const STEPS = [
     number: "01",
     title: "Record",
     description:
-      "Hold your phone near a window or step outside. Tap record to capture 5–15 seconds of birdsong.",
+      "Hold your phone near a window or step outside. Tap record to capture 5-15 seconds of birdsong.",
   },
   {
     number: "02",
@@ -224,7 +224,7 @@ const STEPS = [
     number: "03",
     title: "Identify",
     description:
-      "Get the species name and a confidence score in seconds—no field guide required.",
+      "Get the species name and a confidence score in seconds - no field guide required.",
   },
 ];
 
@@ -290,8 +290,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main id="main" className="min-h-screen">
-      {/* ---- Header ---- */}
+    <main id="main" className="min-h-screen bg-cream text-warm-900">
       <header className="px-6 md:px-12 lg:px-20 py-6">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <p className="font-serif text-2xl text-warm-900 tracking-tight">
@@ -303,7 +302,6 @@ export default function Home() {
         </div>
       </header>
 
-      {/* ---- Hero ---- */}
       <section className="px-6 md:px-12 lg:px-20 py-12 md:py-20">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-hero gap-12 md:gap-16 items-center">
           <div>
@@ -314,7 +312,7 @@ export default function Home() {
             </h1>
             <p className="font-sans text-lg text-warm-600 max-w-md mb-10 leading-relaxed">
               Point your microphone at birdsong and ChirpCheck identifies the
-              species in seconds&mdash;powered by Cornell&rsquo;s BirdNET model
+              species in seconds, powered by Cornell&rsquo;s BirdNET model
               trained on 6,000+ species.
             </p>
             <RecordButton
@@ -336,7 +334,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ---- Results area ---- */}
       <section className="px-6 md:px-12 lg:px-20 pb-12">
         <div className="max-w-6xl mx-auto">
           <div className="max-w-2xl">
@@ -349,7 +346,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ---- How it works ---- */}
       <section className="px-6 md:px-12 lg:px-20 py-16 md:py-24 border-t-2 border-warm-200">
         <div className="max-w-6xl mx-auto">
           <h2 className="font-serif text-3xl md:text-4xl text-warm-900 mb-12">
@@ -376,7 +372,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ---- Footer ---- */}
       <footer className="px-6 md:px-12 lg:px-20 py-8 border-t-2 border-warm-200">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-sm font-sans text-warm-500">

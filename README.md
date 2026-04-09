@@ -1,43 +1,70 @@
 # ChirpCheck
 
-ChirpCheck is an app for identifying birds by their sounds using BirdNET.
+Web app for identifying bird sounds using BirdNET. The browser records audio and sends it to a FastAPI backend; the backend converts the clip with ffmpeg and runs inference via [birdnetlib](https://github.com/joeweiss/birdnetlib) ([BirdNET](https://birdnet.cornell.edu/)).
 
-It records audio from the browser and sends it to a FastAPI backend. The backend accepts an audio file and returns a simple JSON response with a species name and confidence score. Right now the response is mocked, I still have to add the BirdNET model later.
+- **Frontend:** Next.js, TypeScript, Tailwind  
+- **Backend:** FastAPI, TensorFlow Lite (through birdnetlib)
 
 ## Requirements
 
 - Node.js 20+
-- Python 3.11+ with `pip`
+- Python 3.12 (recommended; TensorFlow wheels are unreliable on 3.13 for this stack)
+- ffmpeg installed and on `PATH`
+- Git
 
 ## Setup
 
-Clone the repository and install dependencies for both parts of the app.
-
 ```bash
+git clone <repository-url>
 cd Bird_sound_app
 
-cd frontend
-npm install
+cd frontend && npm install && cd ..
 
-cd ../backend
+cd backend
+py -3.12 -m venv .venv
+```
+
+Activate the venv and install Python dependencies:
+
+**Windows (PowerShell):**
+
+```powershell
+cd backend
+.\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
 ```
 
-## Running the app
-
-Start the backend first:
+**macOS / Linux:**
 
 ```bash
 cd backend
-python -m uvicorn main:app --reload --port 8000
+source .venv/bin/activate
+pip install -r requirements.txt
 ```
 
-Then start the frontend:
+## Run
+
+**Backend** (from `backend/`):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\run.ps1
+```
+
+Uses the project venv and serves the API at **http://127.0.0.1:8001**. Check **http://127.0.0.1:8001/health** for `birdnet: true` and the active `python` path.
+
+**Frontend:**
 
 ```bash
 cd frontend
 npm run dev
 ```
 
-Open `http://localhost:3000` in your browser. Press “Record Birdsongs” to capture a short clip and wait for the identification result.
+Open **http://localhost:3000**. API URL is set in `.env.local` (default `http://localhost:8001`).
 
+## Contributing
+
+Issues and pull requests are welcome. Useful directions: UX, error handling (ffmpeg, microphone, model load), documentation for other platforms, tests/CI, API behavior (confidence thresholds, multiple top hits).
+
+Describe what changed and why in the PR.
+
+Note: BirdNET model files and licensing are separate from this repo; review the upstream project if you distribute or deploy the model.

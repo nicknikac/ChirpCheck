@@ -16,7 +16,7 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "ChirpCheck — Identify Birds by Sound",
+  title: "ChirpCheck - Identify Birds by Sound",
   description:
     "Record birdsong from your phone or computer and instantly identify the species using BirdNET machine learning.",
   manifest: "/manifest.json",
