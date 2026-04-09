@@ -5,6 +5,9 @@ Web app for identifying bird sounds using BirdNET. The browser records audio and
 - **Frontend:** Next.js, TypeScript, Tailwind  
 - **Backend:** FastAPI, TensorFlow Lite (through birdnetlib)
 
+
+<img width="1715" height="849" alt="image" src="https://github.com/user-attachments/assets/b6e9f121-0083-4489-bd8b-239f76d70f19" />
+
 ## Requirements
 
 - Node.js 20+
